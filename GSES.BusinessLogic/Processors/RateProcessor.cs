@@ -21,10 +21,10 @@ namespace GSES.BusinessLogic.Processors
 
         public async Task<BaseRateModel> GetRateAsync()
         {
-            httpClient.DefaultRequestHeaders.Add(RateConsts.KeyHeaderName, configuration[RateConsts.ConfigApiKey]);
+            this.httpClient.DefaultRequestHeaders.Add(RateConsts.KeyHeaderName, this.configuration[RateConsts.ConfigApiKey]);
 
             var url = string.Format(RateConsts.HttpDomain, RateConsts.BitcoinCode, RateConsts.HryvnyaCode);
-            return await httpClient.GetModelFromRequest<CoinApiRateModel>(url);
+            return await this.httpClient.GetModelFromRequest<CoinApiRateModel>(url);
         }
     }
 }

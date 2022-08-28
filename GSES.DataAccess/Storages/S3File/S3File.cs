@@ -29,7 +29,7 @@ namespace GSES.DataAccess.Storages.S3File
 
         public async Task AddAsync(T element)
         {
-            var existingFiles = await s3Client.ListObjectsAsync(AWSConsts.DataBucketName);
+            var existingFiles = await this.s3Client.ListObjectsAsync(AWSConsts.DataBucketName);
 
             var allTheElements = new List<T>();
 
@@ -51,14 +51,14 @@ namespace GSES.DataAccess.Storages.S3File
             await this.PutNewVersionOfFileToS3BucketAsync(allTheElements);
         }
 
-        public async Task DeleteAsync(T element)
+        public Task DeleteAsync(T element)
         {
             throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<T>> GetAsync(Func<T, bool> predicate)
         {
-            var existingFiles = await s3Client.ListObjectsAsync(AWSConsts.DataBucketName);
+            var existingFiles = await this.s3Client.ListObjectsAsync(AWSConsts.DataBucketName);
             var items = new List<T>();
 
             if (existingFiles != null)
@@ -88,7 +88,7 @@ namespace GSES.DataAccess.Storages.S3File
                 Key = FileName,
             };
 
-            var dataFile = await s3Client.GetObjectAsync(request);
+            var dataFile = await this.s3Client.GetObjectAsync(request);
 
             if (dataFile is null)
             {
@@ -109,7 +109,7 @@ namespace GSES.DataAccess.Storages.S3File
                 Key = FileName,
             };
 
-            await s3Client.DeleteObjectAsync(request);
+            await this.s3Client.DeleteObjectAsync(request);
         }
 
         private async Task PutNewVersionOfFileToS3BucketAsync(IEnumerable<T> items)
@@ -128,8 +128,8 @@ namespace GSES.DataAccess.Storages.S3File
                 Key = FileName,
                 InputStream = stream,
             };
-         
-            using var transferUtility = new TransferUtility(s3Client);
+
+            using var transferUtility = new TransferUtility(this.s3Client);
             await transferUtility.UploadAsync(transferRequest);
         }
     }

@@ -7,7 +7,7 @@ namespace GSES.BusinessLogic.Validators
     {
         public SubscriberValidator()
         {
-            RuleFor(s => s.Email).EmailAddress();
+            this.RuleFor(s => s.Email).EmailAddress();
         }
     }
 }

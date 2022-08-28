@@ -7,6 +7,7 @@ namespace GSES.DataAccess.Repositories.Interfaces
     public interface ISubscriberRepository
     {
         Task<IEnumerable<Subscriber>> GetAsync();
+
         Task AddAsync(Subscriber subscriber);
     }
 }

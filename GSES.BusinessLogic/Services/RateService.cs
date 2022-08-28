@@ -15,7 +15,7 @@ namespace GSES.BusinessLogic.Services
 
         public async Task<double> GetRateAsync()
         {
-            var model = await rateProcessor.GetRateAsync();
+            var model = await this.rateProcessor.GetRateAsync();
 
             return model.Rate;
         }

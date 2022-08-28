@@ -27,7 +27,7 @@ namespace GSES.API
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -41,22 +41,21 @@ namespace GSES.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GSES.API", Version = "v1" });
             });
 
-            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddDefaultAWSOptions(this.Configuration.GetAWSOptions());
 
             services.AddHttpClient();
-            services.AddTransient<SmtpClient>((serviceProvider) =>
-            {
-                return new SmtpClient()
-                {
-                    Host = Configuration.GetValue<String>(ConfigConsts.SmtpHost),
-                    Port = Configuration.GetValue<int>(ConfigConsts.SmtpPort),
-                    Credentials = new NetworkCredential(
-                            Configuration.GetValue<String>(ConfigConsts.SmtpEmail),
-                            Configuration.GetValue<String>(ConfigConsts.SmtpPassword)
-                        ),
-                    EnableSsl = true
-                };
-            });
+            _ = services.AddTransient<SmtpClient>((serviceProvider) =>
+              {
+                  return new SmtpClient()
+                  {
+                      Host = this.Configuration.GetValue<string>(ConfigConsts.SmtpHost),
+                      Port = this.Configuration.GetValue<int>(ConfigConsts.SmtpPort),
+                      Credentials = new NetworkCredential(
+                              this.Configuration.GetValue<string>(ConfigConsts.SmtpEmail),
+                              this.Configuration.GetValue<string>(ConfigConsts.SmtpPassword)),
+                      EnableSsl = true
+                  };
+              });
 
             services.AddAWSService<IAmazonS3>();
             services.AddScoped<IStorage, FileStorage>();

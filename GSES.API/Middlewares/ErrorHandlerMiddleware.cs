@@ -12,20 +12,20 @@ namespace GSES.API.Middlewares
 {
     public class ErrorHandlerMiddleware
     {
-        private RequestDelegate _next;
-        private ILogger _logger;
+        private readonly RequestDelegate _next;
+        private readonly ILogger _logger;
 
         public ErrorHandlerMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
-            _next = next;
-            _logger = loggerFactory.CreateLogger<ErrorHandlerMiddleware>();
+            this._next = next;
+            this._logger = loggerFactory.CreateLogger<ErrorHandlerMiddleware>();
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
             try
             {
-                await _next(context);
+                await this._next(context);
             }
             catch (Exception exception)
             {
@@ -47,7 +47,7 @@ namespace GSES.API.Middlewares
                 }
 
                 var result = JsonConvert.SerializeObject(new { message = exception?.Message });
-                _logger.LogError(result);
+                this._logger.LogError(result);
                 await response.WriteAsync(result);
             }
         }

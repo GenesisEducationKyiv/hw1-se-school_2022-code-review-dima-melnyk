@@ -14,10 +14,11 @@ namespace GSES.DataAccess.Storages.S3File
         }
 
         private S3File<Subscriber> subscribers;
-        public ITable<Subscriber> Subscribers 
-        { 
-            get => subscribers;
-            set => subscribers = (S3File<Subscriber>)value; 
+
+        public ITable<Subscriber> Subscribers
+        {
+            get => this.subscribers;
+            set => this.subscribers = (S3File<Subscriber>)value;
         }
     }
 }

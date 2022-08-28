@@ -22,7 +22,7 @@ namespace GSES.BusinessLogic.Services
         private readonly string senderEmail;
 
         public SubscriberService(
-            ISubscriberRepository subscriberRepository, 
+            ISubscriberRepository subscriberRepository,
             SmtpClient smtpClient,
             IValidator<Subscriber> validator,
             IRateProcessor rateProcessor,
@@ -56,7 +56,7 @@ namespace GSES.BusinessLogic.Services
             var subject = string.Format(EmailConsts.EmailSubject, RateConsts.BitcoinCode, RateConsts.HryvnyaCode);
             var body = string.Format(EmailConsts.EmailBody, RateConsts.BitcoinCode, RateConsts.HryvnyaCode, rate.Rate);
 
-            await this.smtpClient.SendMessagesOnEmails(senderEmail, emails, subject, body);
+            await this.smtpClient.SendMessagesOnEmails(this.senderEmail, emails, subject, body);
         }
     }
 }

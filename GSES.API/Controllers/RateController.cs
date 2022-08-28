@@ -17,7 +17,7 @@ namespace GSES.API.Controllers
         [HttpGet("rate")]
         public async Task<IActionResult> Rate()
         {
-            var rate = await rateService.GetRateAsync();
+            var rate = await this.rateService.GetRateAsync();
 
             return Ok(rate);
         }

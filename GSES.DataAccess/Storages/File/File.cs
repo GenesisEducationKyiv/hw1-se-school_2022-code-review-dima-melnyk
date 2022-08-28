@@ -12,7 +12,7 @@ using F = System.IO.File;
 
 namespace GSES.DataAccess.Storages.File
 {
-    public class File<T> : ITable<T> where T: BaseEntity
+    public class File<T> : ITable<T> where T : BaseEntity
     {
         private const string FileName = nameof(T) + GeneralConsts.JsonExtension;
         private const string FullPath = FileConsts.FilePath + FileName;

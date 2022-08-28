@@ -11,10 +11,11 @@ namespace GSES.DataAccess.Storages.File
         }
 
         private File<Subscriber> subscribers;
-        public ITable<Subscriber> Subscribers 
+
+        public ITable<Subscriber> Subscribers
         {
-            get => subscribers;
-            set => subscribers = (File<Subscriber>)value;
+            get => this.subscribers;
+            set => this.subscribers = (File<Subscriber>)value;
         }
     }
 }
