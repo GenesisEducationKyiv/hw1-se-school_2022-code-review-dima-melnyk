@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
@@ -14,7 +15,14 @@ namespace GSES.BusinessLogic.Extensions
         {
             foreach (var email in emails)
             {
-                await client.SendMailAsync(new MailMessage(sender, email, subject, message));
+                try
+                {
+                    await client.SendMailAsync(new MailMessage(sender, email, subject, message));
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Sending failed: {0}", email);
+                }
             }
         }
     }

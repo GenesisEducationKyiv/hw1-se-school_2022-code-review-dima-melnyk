@@ -14,8 +14,8 @@ namespace GSES.DataAccess.Storages.File
 {
     public class File<T> : ITable<T> where T : BaseEntity
     {
-        private const string FileName = nameof(T) + GeneralConsts.JsonExtension;
-        private const string FullPath = FileConsts.FilePath + FileName;
+        private readonly static string FileName = typeof(T) + GeneralConsts.JsonExtension;
+        private readonly static string FullPath = FileConsts.FilePath + FileName;
 
         public async Task AddAsync(T element)
         {
@@ -27,22 +27,14 @@ namespace GSES.DataAccess.Storages.File
                 throw new DuplicateNameException(GeneralConsts.DuplicateErrorMessage);
             }
 
-            var jsonModel = JsonConvert.SerializeObject(element);
+            list.Add(element);
+            var jsonModel = JsonConvert.SerializeObject(list);
             EnsureFolderExists(FileConsts.FilePath);
-
-            var format = FileConsts.EmptyListFormat;
 
             using var fileStream = new FileStream(FullPath, FileMode.OpenOrCreate, FileAccess.Write);
             using var streamWriter = new StreamWriter(fileStream);
 
-            if (list.Count > 0)
-            {
-                format = FileConsts.NonEmptyListFormat;
-                fileStream.Position = fileStream.Seek(-1, SeekOrigin.End);
-            }
-
-            var elementToList = string.Format(format, jsonModel);
-            await streamWriter.WriteAsync(elementToList);
+            await streamWriter.WriteAsync(jsonModel);
         }
 
         public Task DeleteAsync(T element)

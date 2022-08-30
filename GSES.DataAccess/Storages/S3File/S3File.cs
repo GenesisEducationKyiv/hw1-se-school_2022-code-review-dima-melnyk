@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,8 +36,6 @@ namespace GSES.DataAccess.Storages.S3File
             {
                 var existingElements = await this.GetListOfElementsFromS3FileAsync();
                 allTheElements.AddRange(existingElements);
-
-                await this.DeleteOldVersionOfS3FileAsync();
             }
 
             if (allTheElements.Contains(element))
@@ -48,6 +45,7 @@ namespace GSES.DataAccess.Storages.S3File
 
             allTheElements.Add(element);
 
+            await this.DeleteOldVersionOfS3FileAsync();
             await this.PutNewVersionOfFileToS3BucketAsync(allTheElements);
         }
 
