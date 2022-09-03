@@ -1,6 +1,7 @@
 ﻿using GSES.DataAccess.Consts;
 using GSES.DataAccess.Entities.Bases;
 using GSES.DataAccess.Storages.Bases;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,17 @@ namespace GSES.DataAccess.Storages.File
     public class File<T> : ITable<T> where T : BaseEntity
     {
         private readonly static string FileName = typeof(T) + GeneralConsts.JsonExtension;
-        private readonly static string FullPath = FileConsts.FilePath + FileName;
+
+        private readonly IConfiguration _configuration;
+
+        private string FolderPath => this._configuration[FileConsts.FilePathConfig];
+
+        private string FullPath => this.FolderPath + FileName;
+
+        public File(IConfiguration configuration)
+        {
+            this._configuration = configuration;
+        }
 
         public async Task AddAsync(T element)
         {
@@ -29,9 +40,9 @@ namespace GSES.DataAccess.Storages.File
 
             list.Add(element);
             var jsonModel = JsonConvert.SerializeObject(list);
-            EnsureFolderExists(FileConsts.FilePath);
+            EnsureFolderExists(this.FolderPath);
 
-            using var fileStream = new FileStream(FullPath, FileMode.OpenOrCreate, FileAccess.Write);
+            using var fileStream = new FileStream(this.FullPath, FileMode.OpenOrCreate, FileAccess.Write);
             using var streamWriter = new StreamWriter(fileStream);
 
             await streamWriter.WriteAsync(jsonModel);
@@ -46,12 +57,12 @@ namespace GSES.DataAccess.Storages.File
 
         public async Task<IEnumerable<T>> GetAsync(Func<T, bool> predicate)
         {
-            if (!F.Exists(FullPath))
+            if (!F.Exists(this.FullPath))
             {
                 return new List<T>();
             }
 
-            var serializedElements = await F.ReadAllTextAsync(FullPath);
+            var serializedElements = await F.ReadAllTextAsync(this.FullPath);
             var elements = JsonConvert.DeserializeObject<IEnumerable<T>>(serializedElements).Where(predicate);
 
             return elements;
