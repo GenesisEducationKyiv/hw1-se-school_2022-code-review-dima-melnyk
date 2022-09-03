@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSES.API", "GSES.API\GSES.API.csproj", "{0C8E4615-6658-47F5-A35E-7713894C9EE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSES.BusinessLogic", "GSES.BusinessLogic\GSES.BusinessLogic.csproj", "{CFABAAB2-C4A8-4B3F-B600-C3B8694D64F6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSES.DataAccess", "GSES.DataAccess\GSES.DataAccess.csproj", "{289663EA-5340-44A2-9EDF-893921643230}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DB49C6B4-6ADA-44B5-A89C-4CA225DBEAF1}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C8E4615-6658-47F5-A35E-7713894C9EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C8E4615-6658-47F5-A35E-7713894C9EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C8E4615-6658-47F5-A35E-7713894C9EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C8E4615-6658-47F5-A35E-7713894C9EE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFABAAB2-C4A8-4B3F-B600-C3B8694D64F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFABAAB2-C4A8-4B3F-B600-C3B8694D64F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFABAAB2-C4A8-4B3F-B600-C3B8694D64F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFABAAB2-C4A8-4B3F-B600-C3B8694D64F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{289663EA-5340-44A2-9EDF-893921643230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{289663EA-5340-44A2-9EDF-893921643230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{289663EA-5340-44A2-9EDF-893921643230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{289663EA-5340-44A2-9EDF-893921643230}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3703535C-3729-4815-BF05-4FAC52F2FD45}
+	EndGlobalSection
+EndGlobal
