@@ -53,13 +53,13 @@ namespace GSES.DataAccess.Storages.File
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<T>> GetAllAsync() => this.GetAsync(e => true);
+        public virtual Task<IEnumerable<T>> GetAllAsync() => this.GetAsync(e => true);
 
         public async Task<IEnumerable<T>> GetAsync(Func<T, bool> predicate)
         {
             if (!F.Exists(this.FullPath))
             {
-                return new List<T>();
+                return Array.Empty<T>();
             }
 
             var serializedElements = await F.ReadAllTextAsync(this.FullPath);
