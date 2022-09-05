@@ -1,0 +1,22 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "ApiKey": "A7175929-4A63-4270-B978-5CC6A3E7F9CD",
+  "Smtp": {
+    "Host": "smtp.gmail.com",
+    "Port": 587,
+    "Email": "bitcoinuahgses@gmail.com",
+    "Password": "hrzfsiekmxgadsrc"
+  },
+  "AWS": {
+    "Region": "us-west-1"
+  },
+  "DataPath": "../Test/Data/",
+  "ApiUrlFormat": "https://rest.coinapi.io/v1/exchangerate/{0}/{1}",
+  "AllowedHosts": "*"
+}

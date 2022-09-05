@@ -22,7 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSES.DataAccess.Tests", "GS
 		{289663EA-5340-44A2-9EDF-893921643230} = {289663EA-5340-44A2-9EDF-893921643230}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSES.BusinessLogic.Tests", "GSES.BusinessLogic.Tests\GSES.BusinessLogic.Tests.csproj", "{F2AB145B-506A-4F64-94FD-7AB586AD0890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSES.BusinessLogic.Tests", "GSES.BusinessLogic.Tests\GSES.BusinessLogic.Tests.csproj", "{F2AB145B-506A-4F64-94FD-7AB586AD0890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSES.IntegrationTests", "GSES.IntegrationTests\GSES.IntegrationTests.csproj", "{83637894-8096-4352-8593-2E606DFCF6F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,10 @@ Global
 		{F2AB145B-506A-4F64-94FD-7AB586AD0890}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2AB145B-506A-4F64-94FD-7AB586AD0890}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2AB145B-506A-4F64-94FD-7AB586AD0890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83637894-8096-4352-8593-2E606DFCF6F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83637894-8096-4352-8593-2E606DFCF6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83637894-8096-4352-8593-2E606DFCF6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83637894-8096-4352-8593-2E606DFCF6F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{622A427D-25ED-461A-8A53-BB851A7EB45A} = {BCD84A8A-0B1B-4E0D-AE0A-DDD7148CA067}
 		{F2AB145B-506A-4F64-94FD-7AB586AD0890} = {BCD84A8A-0B1B-4E0D-AE0A-DDD7148CA067}
+		{83637894-8096-4352-8593-2E606DFCF6F7} = {BCD84A8A-0B1B-4E0D-AE0A-DDD7148CA067}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3703535C-3729-4815-BF05-4FAC52F2FD45}
