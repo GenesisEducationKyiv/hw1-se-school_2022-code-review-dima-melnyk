@@ -23,7 +23,7 @@ namespace GSES.BusinessLogic.Processors
         {
             this.httpClient.DefaultRequestHeaders.Add(RateConsts.KeyHeaderName, this.configuration[RateConsts.ConfigApiKey]);
 
-            var url = string.Format(RateConsts.HttpDomain, RateConsts.BitcoinCode, RateConsts.HryvnyaCode);
+            var url = string.Format(this.configuration[RateConsts.ApiUrlKey], RateConsts.BitcoinCode, RateConsts.HryvnyaCode);
             return await this.httpClient.GetModelFromRequest<CoinApiRateModel>(url);
         }
     }

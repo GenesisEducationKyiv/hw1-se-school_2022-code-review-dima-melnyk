@@ -2,7 +2,7 @@
 {
     public static class RateConsts
     {
-        public const string HttpDomain = "https://rest.coinapi.io/v1/exchangerate/{0}/{1}";
+        public const string ApiUrlKey = "ApiUrl";
 
         public const string BitcoinCode = "BTC";
 
