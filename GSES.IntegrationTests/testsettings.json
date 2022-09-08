@@ -16,7 +16,7 @@
   "AWS": {
     "Region": "us-west-1"
   },
-  "DataPath": "../Data/",
+  "DataPath": "../Test/Data/",
   "ApiUrlFormat": "https://rest.coinapi.io/v1/exchangerate/{0}/{1}",
   "AllowedHosts": "*"
 }
