@@ -6,5 +6,7 @@
         public const string SmtpPort = "Smtp:Port";
         public const string SmtpEmail = "Smtp:Email";
         public const string SmtpPassword = "Smtp:Password";
+
+        public const string CurrentRateApi = "CurrentRateApi";
     }
 }

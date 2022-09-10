@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace GSES.BusinessLogic.Processors
 {
-    public class RateProcessor : IRateProcessor
+    public class CoinApiRateProcessor : IRateProcessor
     {
         private readonly HttpClient httpClient;
         private readonly IConfiguration configuration;
 
-        public RateProcessor(HttpClient httpClient, IConfiguration configuration)
+        public CoinApiRateProcessor(HttpClient httpClient, IConfiguration configuration)
         {
             this.httpClient = httpClient;
             this.configuration = configuration;
@@ -23,7 +23,7 @@ namespace GSES.BusinessLogic.Processors
         {
             this.httpClient.DefaultRequestHeaders.Add(RateConsts.KeyHeaderName, this.configuration[RateConsts.ConfigApiKey]);
 
-            var url = string.Format(this.configuration[RateConsts.ApiUrlKey], RateConsts.BitcoinCode, RateConsts.HryvnyaCode);
+            var url = string.Format(this.configuration[RateConsts.CoinApiUrlKey], RateConsts.BitcoinCode, RateConsts.HryvnyaCode);
             return await this.httpClient.GetModelFromRequest<CoinApiRateModel>(url);
         }
     }
