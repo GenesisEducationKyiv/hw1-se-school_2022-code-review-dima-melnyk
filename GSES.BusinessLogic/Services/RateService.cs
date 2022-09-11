@@ -6,16 +6,16 @@ namespace GSES.BusinessLogic.Services
 {
     public class RateService : IRateService
     {
-        private readonly IRateProcessor rateProcessor;
+        private readonly IProcessorChain rateProcessor;
 
-        public RateService(IRateProcessor rateProcessor)
+        public RateService(IProcessorChain rateProcessor)
         {
             this.rateProcessor = rateProcessor;
         }
 
         public async Task<double> GetRateAsync()
         {
-            var model = await this.rateProcessor.GetRateAsync();
+            var model = await this.rateProcessor.Handle();
 
             return model.Rate;
         }

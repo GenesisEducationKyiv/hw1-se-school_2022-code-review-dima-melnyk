@@ -3,12 +3,13 @@ using GSES.BusinessLogic.Extensions;
 using GSES.BusinessLogic.Models.Rate;
 using GSES.BusinessLogic.Processors.Interfaces;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GSES.BusinessLogic.Processors
 {
-    public class CoinApiRateProcessor : IRateProcessor
+    public class CoinApiRateProcessor : BaseRateProcessor
     {
         private readonly HttpClient httpClient;
         private readonly IConfiguration configuration;
@@ -19,12 +20,30 @@ namespace GSES.BusinessLogic.Processors
             this.configuration = configuration;
         }
 
-        public async Task<BaseRateModel> GetRateAsync()
+        public override async Task<(BaseRateModel, bool)> GetRateAsync()
         {
-            this.httpClient.DefaultRequestHeaders.Add(RateConsts.KeyHeaderName, this.configuration[RateConsts.ConfigApiKey]);
+            BaseRateModel rate = null;
+            var isSuccess = true;
 
-            var url = string.Format(this.configuration[RateConsts.CoinApiUrlKey], RateConsts.BitcoinCode, RateConsts.HryvnyaCode);
-            return await this.httpClient.GetModelFromRequest<CoinApiRateModel>(url);
+            try
+            {
+                this.httpClient.DefaultRequestHeaders.Add(RateConsts.KeyHeaderName, this.configuration[RateConsts.ConfigApiKey]);
+
+                var url = string.Format(this.configuration[RateConsts.CoinApiUrlKey], RateConsts.BitcoinCode, RateConsts.HryvnyaCode);
+
+                rate = await this.httpClient.GetModelFromRequest<CoinApiRateModel>(url);
+
+                if (rate is null)
+                {
+                    throw new Exception("Rate is null, process was not successful");
+                }
+            }
+            catch (Exception)
+            {
+                isSuccess = false;
+            }
+
+            return (rate, isSuccess);
         }
     }
 }

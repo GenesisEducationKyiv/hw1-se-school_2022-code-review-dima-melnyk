@@ -62,15 +62,15 @@ namespace GSES.API
             services.AddTransient<ISubscriberRepository, SubscriberRepository>();
             services.AddValidatorsFromAssemblyContaining<SubscriberValidator>();
 
-            services.AddTransient<IRateProcessor>(sp =>
+            services.AddTransient<IProcessorChain>(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();
                 var httpClient = sp.GetRequiredService<HttpClient>();
 
                 return config[ConfigConsts.CurrentRateApi] switch
                 {
-                    RateApisConsts.Coingecko => new CoingeckoRateProcessor(httpClient, config),
-                    _ => new CoinApiRateProcessor(httpClient, config),
+                    RateApisConsts.Coingecko => new CoingeckoRateProcessor(httpClient, config) { Next = new CoinApiRateProcessor(httpClient, config) },
+                    _ => new CoinApiRateProcessor(httpClient, config) { Next = new CoingeckoRateProcessor(httpClient, config) },
                 };
             });
             services.AddTransient<IRateService, RateService>();

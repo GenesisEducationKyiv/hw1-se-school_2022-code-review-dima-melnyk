@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 
 namespace GSES.BusinessLogic.Processors.Interfaces
 {
-    public interface IRateProcessor
+    public interface IProcessorChain
     {
-        Task<(BaseRateModel, bool)> GetRateAsync();
+        public IProcessorChain Next { get; set; }
+
+        public Task<BaseRateModel> Handle();
     }
 }
