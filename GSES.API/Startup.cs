@@ -56,6 +56,7 @@ namespace GSES.API
                       EnableSsl = true
                   };
               });
+            services.AddMemoryCache();
 
             services.AddAWSService<IAmazonS3>();
             services.AddScoped<IStorage, FileStorage>();
