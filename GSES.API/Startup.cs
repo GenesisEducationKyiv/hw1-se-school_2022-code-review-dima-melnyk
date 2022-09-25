@@ -12,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Net;
 using System.Net.Mail;
 using FluentValidation;
@@ -20,6 +19,7 @@ using GSES.BusinessLogic.Validators;
 using GSES.API.Consts;
 using GSES.DataAccess.Storages.File;
 using GSES.API.Middlewares;
+using System.Net.Http;
 
 namespace GSES.API
 {
@@ -56,13 +56,24 @@ namespace GSES.API
                       EnableSsl = true
                   };
               });
+            services.AddMemoryCache();
 
             services.AddAWSService<IAmazonS3>();
             services.AddScoped<IStorage, FileStorage>();
             services.AddTransient<ISubscriberRepository, SubscriberRepository>();
             services.AddValidatorsFromAssemblyContaining<SubscriberValidator>();
 
-            services.AddTransient<IRateProcessor, RateProcessor>();
+            services.AddTransient<IProcessorChain>(sp =>
+            {
+                var config = sp.GetRequiredService<IConfiguration>();
+                var httpClient = sp.GetRequiredService<HttpClient>();
+
+                return config[ConfigConsts.CurrentRateApi] switch
+                {
+                    RateApisConsts.Coingecko => new CoingeckoRateProcessor(httpClient, config) { Next = new CoinApiRateProcessor(httpClient, config) },
+                    _ => new CoinApiRateProcessor(httpClient, config) { Next = new CoingeckoRateProcessor(httpClient, config) },
+                };
+            });
             services.AddTransient<IRateService, RateService>();
             services.AddTransient<ISubscriberService, SubscriberService>();
         }

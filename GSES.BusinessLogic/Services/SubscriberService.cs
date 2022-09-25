@@ -16,7 +16,7 @@ namespace GSES.BusinessLogic.Services
     {
         private readonly ISubscriberRepository subscriberRepository;
         private readonly SmtpClient smtpClient;
-        private readonly IRateProcessor rateProcessor;
+        private readonly IProcessorChain rateProcessor;
         private readonly IValidator<Subscriber> validator;
 
         private readonly string senderEmail;
@@ -25,7 +25,7 @@ namespace GSES.BusinessLogic.Services
             ISubscriberRepository subscriberRepository,
             SmtpClient smtpClient,
             IValidator<Subscriber> validator,
-            IRateProcessor rateProcessor,
+            IProcessorChain rateProcessor,
             IConfiguration configuration)
         {
             this.subscriberRepository = subscriberRepository;
@@ -51,7 +51,7 @@ namespace GSES.BusinessLogic.Services
         {
             var subscribers = await this.subscriberRepository.GetAsync();
             var emails = subscribers.Select(s => s.Email);
-            var rate = await this.rateProcessor.GetRateAsync();
+            var rate = await this.rateProcessor.Handle();
 
             var subject = string.Format(EmailConsts.EmailSubject, RateConsts.BitcoinCode, RateConsts.HryvnyaCode);
             var body = string.Format(EmailConsts.EmailBody, RateConsts.BitcoinCode, RateConsts.HryvnyaCode, rate.Rate);

@@ -2,6 +2,6 @@
 {
     public class BaseRateModel
     {
-        public double Rate { get; set; }
+        public virtual double Rate { get; set; }
     }
 }
